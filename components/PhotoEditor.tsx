@@ -5,8 +5,11 @@ export default function PhotoEditor() {
 	const [scale, setScale] = useState(1000)
 	const [mousePosition, setMousePosition] = useState([0, 0])
 	const [imageOffset, setImageOffset] = useState([0, 0])
-	const canvasRef = useRef<HTMLCanvasElement>(null)
 	const [profilePicture, setProfilePicture] = useState(profilePhoto.src)
+	const [savedProfilePicture, setSavedProfilePicture] = useState(
+		profilePhoto.src
+	)
+	const canvasRef = useRef<HTMLCanvasElement>(null)
 
 	const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
 		if (!e?.target?.files) return
@@ -23,10 +26,7 @@ export default function PhotoEditor() {
 
 	const saveProfilePicture = () => {
 		if (!canvasRef.current) return
-		const element = document.createElement('a')
-		element.href = canvasRef.current.toDataURL('image/png')
-		element.download = 'image.jpg'
-		element.click()
+		setSavedProfilePicture(canvasRef.current.toDataURL('image/png'))
 	}
 	useEffect(() => {
 		if (imageOffset[0] > 0 || imageOffset[1] > 0) {
@@ -54,8 +54,14 @@ export default function PhotoEditor() {
 	}, [canvasRef, scale, imageOffset, profilePicture])
 
 	return (
-		<div className="w-screen h-screen flex justify-center items-center backdrop-brightness-75">
+		<div className="w-screen h-screen flex justify-centeru items-center backdrop-brightness-75">
 			<div className="bg-white py-8 md:px-32 sm:px-24 px-16 rounded-xl">
+				<div className="flex justify-center">
+					<img
+						src={savedProfilePicture}
+						className="w-16 aspect-square rounded-full"
+					/>
+				</div>
 				<h1 className="font-semibold text-xl text-center">Profile photo</h1>
 				<p className="text-center my-4">
 					Add or change the current profile photo
