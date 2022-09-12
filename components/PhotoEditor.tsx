@@ -55,7 +55,7 @@ export default function PhotoEditor() {
 
 	return (
 		<div className="w-screen h-screen flex justify-center items-center backdrop-brightness-75">
-			<div className="bg-white py-8 px-32 rounded-xl">
+			<div className="bg-white py-8 md:px-32 sm:px-24 px-16 rounded-xl">
 				<h1 className="font-semibold text-xl text-center">Profile photo</h1>
 				<p className="text-center my-4">
 					Add or change the current profile photo
