@@ -54,7 +54,7 @@ export default function PhotoEditor() {
 	}, [canvasRef, scale, imageOffset, profilePicture])
 
 	return (
-		<div className="w-screen h-screen flex justify-centeru items-center backdrop-brightness-75">
+		<div className="w-screen h-screen flex justify-center items-center backdrop-brightness-75">
 			<div className="bg-white py-8 md:px-32 sm:px-24 px-16 rounded-xl">
 				<div className="flex justify-center">
 					<img
