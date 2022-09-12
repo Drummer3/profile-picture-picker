@@ -1,4 +1,10 @@
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import {
+	ChangeEvent,
+	MouseEvent,
+	useEffect,
+	useRef,
+	useState,
+} from 'react'
 import profilePhoto from '../assets/human.jpg'
 import styles from '../styles/ProfilePhoto.module.scss'
 export default function PhotoEditor() {
@@ -6,6 +12,12 @@ export default function PhotoEditor() {
 	const [mousePosition, setMousePosition] = useState([0, 0])
 	const [imageOffset, setImageOffset] = useState([0, 0])
 	const canvasRef = useRef<HTMLCanvasElement>(null)
+	const [profilePicture, setProfilePicture] = useState(profilePhoto.src)
+
+	const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+		if (!e?.target?.files) return
+		setProfilePicture(URL.createObjectURL(e.target.files[0]))
+	}
 
 	const handleDragging = (e: MouseEvent) => {
 		if (imageOffset[0] > 0 || imageOffset[1] > 0) return
@@ -28,7 +40,7 @@ export default function PhotoEditor() {
 			return
 		}
 		const image = new Image()
-		image.src = profilePhoto.src
+		image.src = profilePicture
 		const canvas = canvasRef.current
 		const context = canvas?.getContext('2d')
 		if (!context || !canvas) return
@@ -45,7 +57,7 @@ export default function PhotoEditor() {
 				canvas.height * (scale / 1000)
 			)
 		}
-	}, [canvasRef, scale, imageOffset])
+	}, [canvasRef, scale, imageOffset, profilePicture])
 
 	return (
 		<div className="w-screen h-screen flex justify-center items-center backdrop-brightness-75">
@@ -59,7 +71,13 @@ export default function PhotoEditor() {
 						Add photo
 					</p>
 				</label>
-				<input type="file" id="fileInput" name="fileInput" className="hidden" />
+				<input
+					type="file"
+					id="fileInput"
+					name="fileInput"
+					className="hidden"
+					onChange={handleFileUpload}
+				/>
 				<canvas
 					ref={canvasRef}
 					className="relative my-4 mx-auto w-full aspect-square overflow-hidden"
