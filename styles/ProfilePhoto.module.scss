@@ -1,0 +1,12 @@
+/* The slider itself */
+.slider {
+	@apply rounded-full appearance-none bg-neutral-200 h-1.5 w-full outline-none duration-150 opacity-75 hover:opacity-100;
+}
+
+.slider::-webkit-slider-thumb {
+	@apply appearance-none rounded-full cursor-pointer bg-white drop-shadow-md h-6 w-6 border-0;
+}
+
+.slider::-moz-range-thumb {
+	@apply rounded-full cursor-pointer bg-white drop-shadow-md h-6 w-6 border-0;
+}
